@@ -113,12 +113,12 @@
     .head { max-width: 40em; margin-bottom: 40px; }
     .head p { color: var(--muted); margin-top: 14px; font-size: 18px; }
 
-    /* Screenshot carousel: swipe on phones (snaps, the centred one grows); all five side by side on wide screens */
+    /* Screenshot carousel: swipe on phones (snaps, the centred one grows); two rows of three on wide screens */
     .shots { position: relative; }
     .track { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 calc(50% - 140px); padding: 20px calc(50% - 140px) 34px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .track::-webkit-scrollbar { display: none; }
     .slide { margin: 0; scroll-snap-align: center; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
-    /* The five arrive together when the carousel comes into view (the off-screen ones would never "intersect" alone). */
+    /* They arrive together when the carousel comes into view (the off-screen ones would never "intersect" alone). */
     .slide { opacity: 0; transform: translateY(40px) scale(.96); transition: opacity .9s var(--ease), transform .9s var(--ease); transition-delay: var(--d, 0s); }
     .track.in .slide { opacity: 1; transform: none; }
     .track.live .slide { transition: transform .35s var(--ease), opacity .35s; transition-delay: 0s; }
@@ -132,15 +132,14 @@
     @media (min-width: 1180px) {
       .track { overflow: visible; justify-content: center; padding: 20px 0 10px; }
       .track.live .slide { transform: none !important; opacity: 1 !important; }
-      .slide:nth-child(even) { margin-top: 56px; }
+      .slide:nth-child(3n+2) { margin-top: 56px; }
       .slide .phone { transition: transform .5s var(--ease); }
       .slide:hover .phone { transform: translateY(-10px) rotate(-1deg); }
       .dots { display: none; }
-      .track { gap: 18px; }
-      .slide .phone { --w: 216px; }
-      .slide figcaption { max-width: 216px; }
+      .track { flex-wrap: wrap; gap: 56px 48px; max-width: 1000px; margin: 0 auto; }
+      .slide .phone { --w: 264px; }
+      .slide figcaption { max-width: 264px; }
     }
-    @media (min-width: 1500px) { .slide .phone { --w: 256px; } .slide figcaption { max-width: 256px; } }
 
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
     .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 26px; }
@@ -273,13 +272,20 @@
             <figcaption><b>Learn each exercise</b><span>A drawing of the movement, how to set up, and what to avoid.</span></figcaption>
           </figure>
           <figure class="slide" style="--d:.3s">
+            <div class="phone" role="img" aria-label="History trends: this month against last month, an 11-week streak, and workouts per week over the last 12 weeks">
+              <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
+              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/trends-dark.jpg" /><img src="assets/screens/trends.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
+            </div>
+            <figcaption><b>See your trends</b><span>A calendar of training days, your streak, weekly totals and which muscles you’re skipping.</span></figcaption>
+          </figure>
+          <figure class="slide" style="--d:.4s">
             <div class="phone" role="img" aria-label="The Me tab: weight trend at 80.1 kg, a 77 kg target that's on track, and a chart of weigh-ins, trend and plan">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
               <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/me-dark.jpg" /><img src="assets/screens/me.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
             </div>
             <figcaption><b>Watch the trend, not the scale</b><span>A smoothed weight trend against a steady, realistic plan to your target.</span></figcaption>
           </figure>
-          <figure class="slide" style="--d:.4s">
+          <figure class="slide" style="--d:.5s">
             <div class="phone" role="img" aria-label="Adding a custom exercise, Landmine Press: type, muscle group, equipment and your own cues">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
               <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/custom-dark.jpg" /><img src="assets/screens/custom.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
