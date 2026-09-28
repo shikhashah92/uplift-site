@@ -33,7 +33,7 @@
       .mark-light { display: none; } .mark-dark { display: inline-block !important; }
       .dark { background: #121518 !important; }
       /* The screenshots switch to the app's dark theme, so the iPhone's status bar and home indicator go light too. */
-      .screen { background: #1D2125; } .status { color: #F7F7F5; } .home-bar { background: #F7F7F5; }
+      html .screen { background: #1D2125; } html .status { color: #F7F7F5; } html .home-bar { background: #F7F7F5; } /* html: beats the frame styles further down */
     }
     * { box-sizing: border-box; }
     html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
