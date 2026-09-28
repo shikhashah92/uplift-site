@@ -98,7 +98,7 @@
     @keyframes float { 50% { transform: translateY(-10px); } }
     @keyframes drift { from { transform: translate(-4%, -2%) scale(1); } to { transform: translate(5%, 4%) scale(1.12); } }
     /* Entrance on load */
-    .rise { opacity: 0; transform: translateY(24px); animation: rise .9s var(--ease) forwards; animation-delay: var(--d, 0s); }
+    .rise { opacity: .35; transform: translateY(16px); animation: rise .55s var(--ease) forwards; animation-delay: calc(var(--d, 0s) * .6); } /* readable from the first frame */
     @keyframes rise { to { opacity: 1; transform: none; } }
     .pop { opacity: 0; transform: translateY(60px) rotateX(18deg) scale(.94); animation: pop 1.2s var(--ease) .25s forwards; }
     @keyframes pop { to { opacity: 1; transform: none; } }
@@ -126,9 +126,12 @@
     .slide figcaption { text-align: center; max-width: 260px; }
     .slide figcaption b { display: block; font-size: 18px; letter-spacing: -0.01em; }
     .slide figcaption span { color: var(--muted); font-size: 15px; }
-    .dots { display: flex; justify-content: center; gap: 8px; margin-top: 4px; }
-    .dots button { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 99px; background: var(--line); cursor: pointer; transition: width .3s var(--ease), background .3s; }
-    .dots button[aria-current="true"] { width: 26px; background: var(--mint); }
+    .dots { display: flex; justify-content: center; margin-top: 4px; }
+    /* A 44px tap area around each small dot. */
+    .dots button { width: 44px; height: 44px; padding: 0; border: 0; background: none; cursor: pointer; display: grid; place-items: center; border-radius: 99px; }
+    .dots button::before { content: ""; width: 8px; height: 8px; border-radius: 99px; background: var(--line); transition: width .3s var(--ease), background .3s; }
+    .dots button[aria-selected="true"]::before { width: 26px; background: var(--mint); }
+    .dots button:focus-visible { outline: 2px solid var(--mint-text); outline-offset: -6px; }
     @media (min-width: 1180px) {
       .track { overflow: visible; justify-content: center; padding: 20px 0 10px; }
       .track.live .slide { transform: none !important; opacity: 1 !important; }
@@ -420,8 +423,18 @@
     slides.forEach((s, i) => {
       const b = document.createElement('button');
       b.setAttribute('role', 'tab'); b.setAttribute('aria-label', `Screenshot ${i + 1}: ${s.querySelector('b').textContent}`);
-      b.addEventListener('click', () => track.scrollTo({ left: s.offsetLeft + s.offsetWidth / 2 - track.clientWidth / 2, behavior: still ? 'auto' : 'smooth' }));
+      b.addEventListener('click', () => go(i));
       dots.appendChild(b);
+    });
+    function go(i) { const s = slides[i]; track.scrollTo({ left: s.offsetLeft + s.offsetWidth / 2 - track.clientWidth / 2, behavior: still ? 'auto' : 'smooth' }); }
+    // Arrow keys move between the dots (one tab stop for the whole row), Home / End jump to the ends.
+    dots.addEventListener('keydown', (e) => {
+      const cur = [...dots.children].findIndex((d) => d.getAttribute('aria-selected') === 'true');
+      const to = { ArrowRight: cur + 1, ArrowLeft: cur - 1, Home: 0, End: slides.length - 1 }[e.key];
+      if (to === undefined) return;
+      e.preventDefault();
+      const n = Math.max(0, Math.min(slides.length - 1, to));
+      go(n); dots.children[n].focus();
     });
     let tt = false;
     const onTrack = () => {
@@ -433,7 +446,7 @@
         if (d < bestD) { bestD = d; best = i; }
         if (!still && track.classList.contains('live')) { s.style.transform = `scale(${1 - k * 0.1}) translateY(${k * 14}px)`; s.style.opacity = String(1 - k * 0.45); }
       });
-      [...dots.children].forEach((d, i) => d.setAttribute('aria-current', String(i === best)));
+      [...dots.children].forEach((d, i) => { d.setAttribute('aria-selected', String(i === best)); d.tabIndex = i === best ? 0 : -1; });
     };
     track.addEventListener('scroll', () => { if (!tt) { tt = true; requestAnimationFrame(onTrack); } }, { passive: true });
     // Arrive, then hand over to the swipe effect.
