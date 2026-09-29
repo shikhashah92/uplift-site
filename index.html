@@ -113,7 +113,7 @@
     .head { max-width: 40em; margin-bottom: 40px; }
     .head p { color: var(--muted); margin-top: 14px; font-size: 18px; }
 
-    /* Screenshot carousel: swipe on phones (snaps, the centred one grows); two rows of three on wide screens */
+    /* Screenshot carousel: swipe on phones (snaps, the centred one grows); two rows of four on wide screens */
     .shots { position: relative; }
     .track { display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 calc(50% - 140px); padding: 20px calc(50% - 140px) 34px; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .track::-webkit-scrollbar { display: none; }
@@ -135,13 +135,13 @@
     @media (min-width: 1180px) {
       .track { overflow: visible; justify-content: center; padding: 20px 0 10px; }
       .track.live .slide { transform: none !important; opacity: 1 !important; }
-      .slide:nth-child(3n+2) { margin-top: 56px; }
+      .slide:nth-child(even) { margin-top: 56px; }
       .slide .phone { transition: transform .5s var(--ease); }
       .slide:hover .phone { transform: translateY(-10px) rotate(-1deg); }
       .dots { display: none; }
-      .track { flex-wrap: wrap; gap: 56px 48px; max-width: 1000px; margin: 0 auto; }
-      .slide .phone { --w: 264px; }
-      .slide figcaption { max-width: 264px; }
+      .track { flex-wrap: wrap; gap: 56px 36px; max-width: 1060px; margin: 0 auto; }
+      .slide .phone { --w: 228px; }
+      .slide figcaption { max-width: 228px; }
     }
 
     .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -234,7 +234,7 @@
         <div class="stage">
           <div class="glow" aria-hidden="true"></div>
           <div class="pop"><div class="float"><div id="hero-phone">
-            <div class="phone" role="img" aria-label="The Uplift home screen: start a workout, this week's stats, and favourite exercises with their progress">
+            <div class="phone" role="img" aria-label="The Uplift home screen: a weekly goal ring at 2 of 3, a comparison with a month ago, and two challenges in progress">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
               <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/home-dark.jpg" /><img src="assets/screens/home.jpg" alt="" width="402" height="820" /></picture><div class="home-bar"></div></div>
             </div>
@@ -253,47 +253,61 @@
       </div>
       <div class="shots">
         <div class="track" id="track">
-          <figure class="slide" style="--d:0s">
-            <div class="phone" role="img" aria-label="Uplift's first question: What should we call you? The name Alex typed in, and a note that everything stays on the phone">
+          <figure class="slide" style="--d:0.00s">
+            <div class="phone" role="img" aria-label="Leg day in progress: a suggestion to try 85 kg today, the first set ticked, and the rest timer counting down">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
-              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/onboarding-dark.jpg" /><img src="assets/screens/onboarding.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
+              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/workout-dark.jpg" /><img src="assets/screens/workout.jpg" alt="" width="402" height="820" /></picture><div class="home-bar"></div></div>
             </div>
-            <figcaption><b>Set up in seconds</b><span>Just your name. Birth date and gender are optional, and no account, ever.</span></figcaption>
+            <figcaption><b>Beat last time</b><span>Last time’s numbers are filled in, with a nudge to go a little heavier. Tick a set and rest starts.</span></figcaption>
           </figure>
-          <figure class="slide" style="--d:.1s">
-            <div class="phone" role="img" aria-label="Leg day in progress: barbell back squat with the first set ticked, leg press, and a rest timer counting down">
+          <figure class="slide" style="--d:0.08s">
+            <div class="phone" role="img" aria-label="Workout saved: weekly goal met, a new personal best on the squat, and a button to share the workout">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
-              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/workout-dark.jpg" /><img src="assets/screens/workout.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
+              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/share-dark.jpg" /><img src="assets/screens/share.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
             </div>
-            <figcaption><b>Log every set</b><span>Last time's numbers are filled in. Type over them, tick, and the rest timer starts.</span></figcaption>
+            <figcaption><b>Celebrate every best</b><span>Personal bests and a closed weekly ring at the finish, and a picture to share on Instagram or WhatsApp.</span></figcaption>
           </figure>
-          <figure class="slide" style="--d:.2s">
-            <div class="phone" role="img" aria-label="The barbell back squat page: a drawing of the lift, then set-up, execution and mistakes to avoid">
+          <figure class="slide" style="--d:0.16s">
+            <div class="phone" role="img" aria-label="Barbell back squat: a drawing of the movement, how to set up, and what to avoid">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
               <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/exercise-dark.jpg" /><img src="assets/screens/exercise.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
             </div>
             <figcaption><b>Learn each exercise</b><span>A drawing of the movement, how to set up, and what to avoid.</span></figcaption>
           </figure>
-          <figure class="slide" style="--d:.3s">
-            <div class="phone" role="img" aria-label="History trends: this month against last month, an 11-week streak, and workouts per week over the last 12 weeks">
+          <figure class="slide" style="--d:0.24s">
+            <div class="phone" role="img" aria-label="Trophies on the Me tab: a half marathon, 25 workouts, the weekly goal met 4 weeks running, and what’s next">
+              <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
+              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/trophies-dark.jpg" /><img src="assets/screens/trophies.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
+            </div>
+            <figcaption><b>Trophies worth earning</b><span>Milestones from your own log, like 5 tonnes lifted, about an elephant.</span></figcaption>
+          </figure>
+          <figure class="slide" style="--d:0.32s">
+            <div class="phone" role="img" aria-label="Challenges: 12 workouts in 4 weeks and run 50 km in a month in progress, with more to join">
+              <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
+              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/challenges-dark.jpg" /><img src="assets/screens/challenges.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
+            </div>
+            <figcaption><b>Challenge a friend</b><span>Solo challenges, or send a friend a link to match your best. No account needed.</span></figcaption>
+          </figure>
+          <figure class="slide" style="--d:0.40s">
+            <div class="phone" role="img" aria-label="September, wrapped: 17 workouts on 17 days, 55 tonnes lifted and 23 personal bests">
+              <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
+              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/wrapped-dark.jpg" /><img src="assets/screens/wrapped.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
+            </div>
+            <figcaption><b>Your month, wrapped</b><span>On the 1st, the month in one story: your best week, heaviest lift and milestones, ready to share.</span></figcaption>
+          </figure>
+          <figure class="slide" style="--d:0.48s">
+            <div class="phone" role="img" aria-label="History trends: this month against last month, an 11-week streak, and workouts per week">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
               <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/trends-dark.jpg" /><img src="assets/screens/trends.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
             </div>
-            <figcaption><b>See your trends</b><span>A calendar of training days, your streak, weekly totals and which muscles you’re skipping.</span></figcaption>
+            <figcaption><b>See your trends</b><span>A calendar and a year of training days, streaks, weekly totals and the muscles you’ve been skipping.</span></figcaption>
           </figure>
-          <figure class="slide" style="--d:.4s">
-            <div class="phone" role="img" aria-label="The Me tab: weight trend at 80.1 kg, a 77 kg target that's on track, and a chart of weigh-ins, trend and plan">
+          <figure class="slide" style="--d:0.56s">
+            <div class="phone" role="img" aria-label="The Me tab: weight trend, a target plan and a chart of weigh-ins">
               <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
               <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/me-dark.jpg" /><img src="assets/screens/me.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
             </div>
             <figcaption><b>Watch the trend, not the scale</b><span>A smoothed weight trend against a steady, realistic plan to your target.</span></figcaption>
-          </figure>
-          <figure class="slide" style="--d:.5s">
-            <div class="phone" role="img" aria-label="Workout saved: a new personal best on the barbell back squat, 85 kg, and a button to share the workout">
-              <i class="b b1"></i><i class="b b2"></i><i class="b b3"></i><i class="b b4"></i>
-              <div class="screen"><div class="island"></div><div class="status"><span>9:41</span><span class="si"></span></div><picture><source media="(prefers-color-scheme: dark)" srcset="assets/screens/share-dark.jpg" /><img src="assets/screens/share.jpg" alt="" width="402" height="820" loading="lazy" /></picture><div class="home-bar"></div></div>
-            </div>
-            <figcaption><b>Celebrate every best</b><span>New personal bests at the finish, and a picture to share on Instagram or WhatsApp.</span></figcaption>
           </figure>
         </div>
         <div class="dots" id="dots" role="tablist" aria-label="Screenshots"></div>
@@ -325,6 +339,36 @@
             <h3>Progress you can trust</h3>
             <p>A weight trend that ignores daily noise, a target plan at a safe weekly pace, and charts for every exercise.</p>
             <ul class="list"><li>A training calendar, streaks and a Monday recap</li><li>Which muscle groups you’ve been skipping</li><li>BMI, body fat, measurements, photos</li><li>Weigh-in reminders in your own calendar</li><li>kg or lb, cm or ft / in</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="alt" id="keep-going">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <div class="eyebrow">Keep going</div>
+          <h2>Built to bring you back</h2>
+          <p>A goal for the week, a nudge from your own calendar, and something to celebrate when you get there.</p>
+        </div>
+        <div class="grid3">
+          <div class="card" data-reveal style="--d:0s">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 8 8"/></svg></div>
+            <h3>A goal for every week</h3>
+            <p>Choose how many workouts a week. A ring fills as you go, and rest days never break your streak.</p>
+            <ul class="list"><li>Training days in your own calendar</li><li>“Try 85 kg today”: beat last time</li><li>An easy way back after a break</li></ul>
+          </div>
+          <div class="card" data-reveal style="--d:.1s">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M9 20h6"/></svg></div>
+            <h3>Trophies and your month, wrapped</h3>
+            <p>Milestones from your own log, like 5 tonnes lifted (about an elephant), and a story of each month.</p>
+            <ul class="list"><li>36 milestones to earn</li><li>A year of training days at a glance</li><li>“Past you”: how far you’ve come</li></ul>
+          </div>
+          <div class="card" data-reveal style="--d:.2s">
+            <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg></div>
+            <h3>Challenges, with friends</h3>
+            <p>Take on 100 push-ups a day or a 3-minute plank, or dare a friend to match your best with a link.</p>
+            <ul class="list"><li>Works over WhatsApp, no account</li><li>Your progress stays on your phone</li><li>Share a picture of every win</li></ul>
           </div>
         </div>
       </div>
@@ -368,6 +412,7 @@
           <details><summary>Where is my data stored?</summary><p>On your phone, in the app's own storage. Nothing is uploaded, synced or shared, so no one else can see it, including us.</p></details>
           <details><summary>What happens if I change phones?</summary><p>Save a backup in Settings (you can lock it with a passphrase), keep the file in Files, iCloud Drive or Google Drive, and restore it on the new phone.</p></details>
           <details><summary>Can I share my workouts?</summary><p>Yes. After a workout, or from any workout in History, tap Share workout. Uplift makes a picture of it on your phone, with any personal bests, ready for Instagram, WhatsApp or anywhere else. Nothing is uploaded: the picture goes straight to your share sheet, and only where you send it.</p></details>
+          <details><summary>Does Uplift send notifications?</summary><p>No, and that’s on purpose: sending them would need a server that knows who you are. Instead, Uplift adds your training days (and weigh-ins, if you like) to your own calendar, so your phone reminds you and nothing leaves it.</p></details>
           <details><summary>Does it work offline?</summary><p>Yes. Once it's on your Home Screen, Uplift opens and works without a connection, at the gym or anywhere else.</p></details>
           <details><summary>iPhone or Android?</summary><p>Both. On iPhone use Safari, on Android use Chrome, then add it to your Home Screen.</p></details>
           <details><summary>Can I bring my workouts from another app?</summary><p>Yes. If you use Strong, the popular workout-tracking app, export your data from Strong’s settings (it gives you a CSV file), then in Uplift open Me → Settings → Import from Strong. Your workouts, sets, warm-ups and cardio all come across.</p><p>Using a different app or a spreadsheet? <a href="mailto:shikhashah92@gmail.com?subject=Moving%20my%20workouts%20to%20Uplift">Email us</a> and we’ll help you move your history over.</p></details>
