@@ -130,8 +130,9 @@
 
     /* Demo clip (dark in both themes; it has its own captions) */
     #demo .head { margin-left: auto; margin-right: auto; text-align: center; }
-    .demo { display: block; width: min(340px, 78vw); height: auto; aspect-ratio: 9 / 16; margin: 0 auto; border-radius: 28px; background: #0E1114;
+    .demo { display: block; width: min(340px, 78vw); height: auto; aspect-ratio: 9 / 16; margin: 0 auto; border-radius: 28px; background: #F7F7F5;
       box-shadow: 0 0 0 1px rgba(29,33,37,.12), 0 40px 70px -30px rgba(29,33,37,.45); }
+    @media (prefers-color-scheme: dark) { .demo { background: #0B0E10; } } /* the clip's own background, light or dark */
 
     /* Screenshot carousel: swipe on phones (snaps, the centred one grows); two rows of four on wide screens */
     .shots { position: relative; }
@@ -277,7 +278,7 @@
           <p>Tick your sets, beat last time, watch the numbers climb.</p>
         </div>
         <!-- Self-hosted on purpose: a YouTube embed would load Google's trackers. Starts when scrolled into view (script below). -->
-        <video class="demo" id="demo-video" src="assets/demo/demo.mp4" poster="assets/demo/poster.jpg" width="720" height="1280" muted loop playsinline preload="none" aria-label="Uplift in 16 seconds: everything stays on your phone; log every set as the next one fills in; beat last time with a suggestion to go 2 kg heavier; watch a lift climb on its chart; see which muscles you skip; your backups stay on your phone"></video>
+        <video class="demo" id="demo-video" width="720" height="1280" muted loop playsinline preload="none" aria-label="Uplift in 16 seconds: everything stays on your phone; log every set as the next one fills in; beat last time with a suggestion to go 2 kg heavier; watch a lift climb on its chart; see which muscles you skip; your backups stay on your phone"></video>
       </div>
     </section>
 
@@ -526,7 +527,18 @@
     addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
     // Demo clip: plays only while on screen (and loads nothing until then); with reduced motion it waits for a tap.
+    // Light or dark to match the page, like the screenshots; switching theme swaps it in place.
     const demo = document.getElementById('demo-video');
+    const darkMode = matchMedia('(prefers-color-scheme: dark)');
+    const pickClip = () => {
+      const sfx = darkMode.matches ? '' : '-light', src = `assets/demo/demo${sfx}.mp4`;
+      if (demo.getAttribute('src') === src) return;
+      const playing = !demo.paused;
+      demo.poster = `assets/demo/poster${sfx}.jpg`; demo.src = src;
+      if (playing) demo.play().catch(() => {});
+    };
+    pickClip();
+    darkMode.addEventListener('change', pickClip);
     if (still) demo.controls = true;
     else new IntersectionObserver((es) => es.forEach((e) => (e.isIntersecting ? demo.play().catch(() => { demo.controls = true; }) : demo.pause())), { threshold: 0.4 }).observe(demo);
 
