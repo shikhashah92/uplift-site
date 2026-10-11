@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Barbell plate calculator: what to load on each side (kg and lb) | Uplift</title>
+  <meta name="description" content="Free plate calculator: enter the weight you want on the bar and see which plates to load on each side, for 20, 15 or 10 kg bars (or 45, 35, 15 lb)." />
+  <link rel="canonical" href="https://getuplift.pro/tools/plate-calculator/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://getuplift.pro/tools/plate-calculator/" />
+  <meta property="og:title" content="Barbell plate calculator: what to load on each side (kg and lb) | Uplift" />
+  <meta property="og:description" content="Free plate calculator: enter the weight you want on the bar and see which plates to load on each side, for 20, 15 or 10 kg bars (or 45, 35, 15 lb)." />
+  <meta property="og:image" content="https://getuplift.pro/assets/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Uplift: a private training log for your phone" />
+  <meta property="og:site_name" content="Uplift" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1D2125" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="preload" href="/assets/Archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/site.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Uplift","item":"https://getuplift.pro/"},{"@type":"ListItem","position":2,"name":"Plate calculator","item":"https://getuplift.pro/tools/plate-calculator/"}]}</script>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="/" aria-label="Uplift home">
+        <img class="mark-light" src="/assets/mark.svg" alt="" width="34" height="34" />
+        <img class="mark-dark" src="/assets/mark-reversed.svg" alt="" width="34" height="34" style="display:none" />
+        <span>up<em>lift</em></span>
+      </a>
+      <a class="btn" href="https://app.getuplift.pro/">Open the app</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Uplift</a> › <span aria-current="page">Plate calculator</span></nav>
+    <div class="eyebrow">Free tool</div>
+    <h1>Barbell plate calculator</h1>
+    <p class="lead">Type the total you want on the bar and see exactly which plates go on each side.</p>
+    <div class="tool">
+      <div class="fields">
+        <label>Total weight<input id="w" inputmode="decimal" value="60" /></label>
+        <label>Bar<select id="b"></select></label>
+        <label>Unit<select id="u"><option>kg</option><option>lb</option></select></label>
+      </div>
+      <div class="result" id="out" aria-live="polite">
+        <span class="muted">On each side</span><span class="big" id="side"></span>
+        <div class="plates" id="pic" aria-hidden="true"></div>
+        <p class="small" id="note"></p>
+      </div>
+    </div>
+    <h2>How to load a barbell</h2>
+    <ol class="steps"><li>Take the weight of the bar off the total: a standard Olympic bar is 20 kg (45 lb), and women’s and technique bars are often 15 kg or 10 kg.</li><li>Halve what’s left. That’s the weight for each side.</li><li>Make it up with the heaviest plates first, then the smaller ones on the outside. Use collars.</li></ol>
+    <p>Example: 100 kg on a 20 kg bar leaves 80 kg, so 40 kg a side: a 25 and a 15. No 15s at your gym? A 25, a 10 and a 5 makes the same.</p>
+    <h2>Which plates does it use?</h2>
+    <p>Standard sets: 25, 20, 15, 10, 5, 2.5 and 1.25 kg plates, or 45, 35, 25, 10, 5 and 2.5 lb. If a total can’t be made exactly, it tells you the nearest weight you can load.</p>
+
+    <section class="cta">
+      <h2>A plate calculator mid-workout</h2>
+      <p>Uplift has this built in: from any barbell exercise, tap Plate calculator and it fills in the weight you’re about to lift.</p>
+      <a class="btn" href="https://app.getuplift.pro/">Open Uplift</a>
+      <p class="small" style="margin:14px 0 0">Free. Works on iPhone and Android, no app store and no account. Your data stays on your phone.</p>
+    </section>
+  </main>
+  <footer>
+    <div class="wrap">
+      <nav>
+        <a href="/">Uplift</a>
+        <a href="/exercises/">Exercise guides</a>
+        <a href="/workouts/">Workouts and plans</a>
+        <a href="/tools/one-rep-max-calculator/">1RM calculator</a>
+        <a href="/tools/plate-calculator/">Plate calculator</a>
+        <a href="/strong-alternative/">Strong alternative</a>
+        <a href="/#privacy">Privacy</a>
+        <a href="mailto:hello@getuplift.pro?subject=Uplift">Contact</a>
+      </nav>
+    </div>
+  </footer>
+  <script>
+    // No trackers: this only does the sums on your device.
+
+    const $ = (id) => document.getElementById(id);
+    const PLATES = { kg: [25, 20, 15, 10, 5, 2.5, 1.25], lb: [45, 35, 25, 10, 5, 2.5] };
+    const BARS = { kg: [20, 15, 10], lb: [45, 35, 15] };
+    // Competition colours, so the picture matches the rack (a lb plate looks like its nearest kg one).
+    const COLOUR = ['#D93A3A', '#2F6FDB', '#E8C12E', '#2FA35B', '#F2F2F2', '#3A3A3A', '#B8BCC2'], HEIGHT = [120, 120, 106, 90, 68, 56, 46];
+    function bars() { const u = $('u').value; $('b').innerHTML = BARS[u].map((b) => '<option>' + b + '</option>').join(''); }
+    function calc() {
+      const u = $('u').value, total = parseFloat($('w').value.replace(',', '.')), bar = Number($('b').value);
+      if (!(total > 0)) { $('out').hidden = true; return; }
+      let rest = Math.max(0, (total - bar) / 2); const side = [];
+      for (const p of PLATES[u]) while (rest >= p - 1e-9) { side.push(p); rest -= p; }
+      const left = Math.round(rest * 2 * 100) / 100;
+      const counts = side.reduce((c, p) => ((c[p] = (c[p] || 0) + 1), c), {});
+      $('side').textContent = side.length ? Object.entries(counts).sort((a, b) => b[0] - a[0]).map(([p, n]) => n + ' × ' + p).join(' + ') + ' ' + u : 'Just the bar';
+      $('note').textContent = total < bar ? 'That’s less than the bar on its own (' + bar + ' ' + u + ').'
+        : left ? 'Can’t make the last ' + left + ' ' + u + ' with standard plates; the nearest you can load is ' + (total - left) + ' ' + u + '.'
+        : 'Load the same on each side of a ' + bar + ' ' + u + ' bar, heaviest first.';
+      const look = (p) => PLATES[u].indexOf(p) + (u === 'lb' ? 1 : 0);
+      $('pic').innerHTML = '<span class="bar"></span>' + side.map((p) => '<i style="height:' + HEIGHT[look(p)] + 'px;background:' + COLOUR[look(p)] + '" title="' + p + ' ' + u + '"></i>').join('');
+      $('out').hidden = false;
+    }
+    $('u').addEventListener('input', () => { bars(); $('w').value = $('u').value === 'lb' ? 135 : 60; calc(); });
+    ['w', 'b'].forEach((id) => $(id).addEventListener('input', calc));
+    bars(); calc();
+  </script>
+</body>
+</html>
