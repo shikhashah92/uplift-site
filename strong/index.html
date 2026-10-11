@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Move from Strong to Uplift: bring your workout history</title>
+  <meta name="description" content="Export a CSV from the Strong app and import it into Uplift: every workout, set, warm-up and cardio session, kept on your phone. No account needed." />
+  <link rel="canonical" href="https://getuplift.pro/strong/" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://getuplift.pro/strong/" />
+  <meta property="og:title" content="Moving from Strong? Bring your history to Uplift" />
+  <meta property="og:description" content="Export from Strong, import into Uplift, keep every set. Nothing leaves your phone." />
+  <meta property="og:image" content="https://getuplift.pro/assets/og.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Uplift: a private training log for your phone" />
+  <meta property="og:site_name" content="Uplift" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://getuplift.pro/assets/og.png" />
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#FFFFFF" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1D2125" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png" />
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="preload" href="../assets/Archivo-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <style>
+    /* Same tokens as the landing page; no scripts, no third-party requests. */
+    @font-face { font-family: "Archivo"; font-weight: 100 900; font-display: swap; src: url(../assets/Archivo-latin.woff2) format("woff2"); }
+    :root { --mint: #16E29A; --mint-text: #087F56; --mint-50: #E8FCF4; --ink: #1D2125; --muted: #6B7278; --line: #EEEEEB; --subtle: #F7F7F5; --bg: #FFFFFF; --card: #FFFFFF; }
+    @media (prefers-color-scheme: dark) {
+      :root { --mint-text: #16E29A; --mint-50: #15372B; --ink: #F7F7F5; --muted: #9AA0A6; --line: #3A4046; --subtle: #262B30; --bg: #1D2125; --card: #262B30; }
+      .mark-light { display: none; } .mark-dark { display: inline-block !important; }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 400 17px/1.6 "Archivo", system-ui, -apple-system, sans-serif; }
+    a { color: var(--mint-text); }
+    .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; height: 68px; max-width: 1160px; }
+    .logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ink); font-weight: 800; font-size: 24px; letter-spacing: -0.035em; }
+    .logo img { width: 34px; height: 34px; }
+    .logo em { font-style: normal; color: var(--mint-text); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 28px; border-radius: 999px; background: var(--mint); color: #1D2125; font: 600 16px/1 "Archivo", sans-serif; text-decoration: none; }
+    header .btn { min-height: 42px; padding: 0 18px; font-size: 15px; }
+    :focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; border-radius: 10px; }
+    main { padding: 32px 0 72px; }
+    .eyebrow { font-size: 14px; font-weight: 600; color: var(--mint-text); margin-bottom: 12px; }
+    h1 { margin: 0; font-weight: 800; font-size: clamp(36px, 6vw, 54px); letter-spacing: -0.035em; line-height: 1.05; }
+    h2 { margin: 48px 0 16px; font-weight: 800; font-size: 26px; letter-spacing: -0.02em; line-height: 1.15; }
+    p { margin: 0 0 14px; }
+    .lead { font-size: 20px; color: var(--muted); margin: 18px 0 0; }
+    ol.steps { counter-reset: s; list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    ol.steps li { counter-increment: s; position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px 20px 66px; }
+    ol.steps li::before { content: counter(s); position: absolute; left: 22px; top: 20px; width: 30px; height: 30px; border-radius: 50%; background: var(--mint); color: #1D2125; font-weight: 800; font-size: 15px; display: grid; place-items: center; }
+    ol.steps b { display: block; }
+    ol.steps span { color: var(--muted); font-size: 16px; }
+    ul.list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    ul.list li { display: flex; gap: 12px; }
+    ul.list li::before { content: ""; flex: 0 0 6px; height: 6px; margin-top: 11px; border-radius: 3px; background: var(--mint); }
+    .note { background: var(--subtle); border-radius: 18px; padding: 20px 22px; color: var(--muted); font-size: 16px; }
+    .note p:last-child { margin: 0; }
+    .cta { margin-top: 48px; text-align: center; }
+    .cta p { color: var(--muted); margin-top: 14px; font-size: 15px; }
+    footer { border-top: 1px solid var(--line); padding: 28px 0 calc(28px + env(safe-area-inset-bottom)); font-size: 14px; color: var(--muted); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 20px; max-width: 1160px; }
+    footer a { color: var(--muted); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <a class="logo" href="../" aria-label="Uplift home">
+        <img class="mark-light" src="../assets/mark.svg" alt="" width="34" height="34" />
+        <img class="mark-dark" src="../assets/mark-reversed.svg" alt="" width="34" height="34" style="display:none" />
+        <span>up<em>lift</em></span>
+      </a>
+      <a class="btn" href="https://app.getuplift.pro/">Open the app</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="eyebrow">Moving from Strong</div>
+    <h1>Bring your Strong history with you</h1>
+    <p class="lead">Years of sets don’t have to stay behind. Export them from Strong, import them into Uplift, and pick up where you left off. It takes about two minutes, and everything stays on your phone.</p>
+
+    <h2>How to move</h2>
+    <ol class="steps">
+      <li><b>Export from Strong</b><span>In the Strong app, open Settings → Export data. It saves a CSV file to your phone.</span></li>
+      <li><b>Open Uplift</b><span>Go to <a href="https://app.getuplift.pro/">app.getuplift.pro</a> in Safari on iPhone or Chrome on Android, and add it to your Home Screen.</span></li>
+      <li><b>Import the file</b><span>In Uplift, open Me → Settings → Import from Strong and pick the CSV. Uplift shows what it found before anything changes.</span></li>
+    </ol>
+
+    <h2>What comes across</h2>
+    <ul class="list">
+      <li>Every workout, with its name, start time and how long it took</li>
+      <li>Every set: weight and reps, plus warm-up and drop sets</li>
+      <li>Cardio with distance and time, and timed holds like planks</li>
+      <li>Common Strong exercises link to Uplift’s own, with form cues and drawings. The rest become your own custom exercises.</li>
+      <li>Each workout name becomes a template, so your usual routines are ready to start</li>
+      <li>Kilograms or pounds: newer exports say which, and for older ones Uplift asks</li>
+    </ul>
+
+    <h2>Good to know</h2>
+    <div class="note">
+      <p>Set notes and RPE from Strong aren’t imported yet.</p>
+      <p>Importing again is safe. Workouts from the days in the file are replaced rather than doubled, and your data before the import is kept in Undo history.</p>
+      <p>The file is read on your phone. Nothing is uploaded, and Uplift has no account or server to send it to.</p>
+    </div>
+
+    <div class="cta">
+      <a class="btn" href="https://app.getuplift.pro/">Open Uplift</a>
+      <p>Using a different app or a spreadsheet? <a href="mailto:hello@getuplift.pro?subject=Moving%20my%20workouts%20to%20Uplift">Email us</a> and we’ll help you move.</p>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <a href="../">Uplift home</a>
+      <a href="../#privacy">Privacy</a>
+      <a href="mailto:hello@getuplift.pro?subject=Uplift">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
